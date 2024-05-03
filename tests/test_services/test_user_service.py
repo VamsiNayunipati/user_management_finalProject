@@ -63,14 +63,15 @@ async def test_get_by_email_user_does_not_exist(db_session):
 
 # Test updating a user with valid data
 async def test_update_user_valid_data(db_session, user):
-    new_email = "updated_email@example.com"
-    updated_user = await UserService.update(db_session, user.id, {"email": new_email})
-    assert updated_user is not None
-    assert updated_user.email == new_email
+    newEmail = "updated_email@example.com"
+    updated_user = await UserService.update(db_session, user.email, user.id, {"email": newEmail})
+    assert isinstance(updated_user, User), "The update function should either return None or a User object."
+    assert updated_user.email == newEmail, "The email should reflect the changed value."
 
 # Test updating a user with invalid data
 async def test_update_user_invalid_data(db_session, user):
-    updated_user = await UserService.update(db_session, user.id, {"email": "invalidemail"})
+    email = {"email": "updated_email3@example.com"}
+    updated_user = await UserService.update(db_session,email, user.id, {"email": "invalidemail"})
     assert updated_user is None
 
 # Test deleting a user who exists
