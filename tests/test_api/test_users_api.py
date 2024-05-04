@@ -68,6 +68,18 @@ async def test_update_user_email_access_allowed_with_admin_user(async_client, ad
     assert response.status_code == 200
 
 @pytest.mark.asyncio
+async def test_create_user_with_GitHub_URL(async_client, verified_user):
+    user_data = {
+        "email": "krishna@vamsik.com",
+        "password": "Secure*1234",
+        "role": UserRole.ADMIN.name,
+        "github_profile_url": "https://github.com/vamsiN"
+    }
+    response = await async_client.post("/register/", json=user_data)
+    assert response.status_code == 200
+    assert "https://github.com/vamsiN" in response.json().get("github_profile_url", "")
+
+@pytest.mark.asyncio
 async def test_delete_user(async_client, admin_user, admin_token):
     headers = {"Authorization": f"Bearer {admin_token}"}
     delete_response = await async_client.delete(f"/users/{admin_user.id}", headers=headers)
