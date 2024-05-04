@@ -102,12 +102,12 @@ async def test_create_user_with_LinkedIn_URL(async_client, verified_user):
         "email": "krishna@vamsik.com",
         "password": "Secure*1234",
         "role": UserRole.ADMIN.name,
-        "linkedin_profile_url": "https://linkedin.com/in/vamsik",
-        "github_profile_url": "https://github.com/vamsiN"
+        "linkedin_profile_url": "https://linkedin.com/in/johndoe",
+        "github_profile_url": "https://github.com/johndoe"
     }
     response = await async_client.post("/register/", json=user_data)
     assert response.status_code == 200
-    assert "https://linkedin.com/in/vamsik" in response.json().get("linkedin_profile_url", "")
+    assert "https://linkedin.com/in/johndoe" in response.json().get("linkedin_profile_url", "")
 
 @pytest.mark.asyncio
 async def test_create_user_with_GitHub_URL(async_client, verified_user):
@@ -115,12 +115,12 @@ async def test_create_user_with_GitHub_URL(async_client, verified_user):
         "email": "krishna@vamsik.com",
         "password": "Secure*1234",
         "role": UserRole.ADMIN.name,
-        "linkedin_profile_url": "https://linkedin.com/in/vamsik",
-        "github_profile_url": "https://github.com/vamsiN"
+        "linkedin_profile_url": "https://linkedin.com/in/johndoe",
+        "github_profile_url": "https://github.com/johndoe"
     }
     response = await async_client.post("/register/", json=user_data)
     assert response.status_code == 200
-    assert "https://github.com/vamsiN" in response.json().get("github_profile_url", "")
+    assert "https://github.com/johndoe" in response.json().get("github_profile_url", "")
 
 import pytest
 from app.services.jwt_service import decode_token
