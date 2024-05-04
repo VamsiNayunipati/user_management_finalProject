@@ -60,6 +60,14 @@ async def test_update_user_email_access_allowed_if_already_exists(async_client, 
     assert "email already exist" in response.json().get("detail", "")
 
 @pytest.mark.asyncio
+async def test_update_user_email_access_allowed_with_admin_user(async_client, admin_user, verified_user, admin_token):
+    updated_data = {"email": f"updated_{admin_user.id}@example.com"}
+    headers = {"Authorization": f"Bearer {admin_token}"}
+    response = await async_client.put(f"/users/{admin_user.id}", json=updated_data, headers=headers)
+    response = await async_client.put(f"/users/{admin_user.id}", json=updated_data, headers=headers)
+    assert response.status_code == 200
+
+@pytest.mark.asyncio
 async def test_delete_user(async_client, admin_user, admin_token):
     headers = {"Authorization": f"Bearer {admin_token}"}
     delete_response = await async_client.delete(f"/users/{admin_user.id}", headers=headers)
