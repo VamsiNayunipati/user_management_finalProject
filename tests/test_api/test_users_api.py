@@ -96,6 +96,19 @@ async def test_create_user_invalid_email(async_client):
     response = await async_client.post("/register/", json=user_data)
     assert response.status_code == 422
 
+@pytest.mark.asyncio
+async def test_create_user_with_LinkedIn_and_GitHub_URLs(async_client, verified_user):
+    user_data = {
+        "email": "krishna@vamsik.com",
+        "password": "Secure*1234",
+        "role": UserRole.ADMIN.name,
+        "linkedin_profile_url": "https://linkedin.com/in/vamsik",
+        "github_profile_url": "https://github.com/johndoe"
+    }
+    response = await async_client.post("/register/", json=user_data)
+    assert response.status_code == 200
+    assert "https://linkedin.com/in/vamsik" in response.json().get("linkedin_profile_url", "")
+
 import pytest
 from app.services.jwt_service import decode_token
 from urllib.parse import urlencode
