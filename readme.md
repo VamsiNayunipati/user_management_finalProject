@@ -11,8 +11,8 @@
 ### Links for the test cases
 - [Test Case 1](https://github.com/VamsiNayunipati/user_management_finalProject/commit/4bde505a0754bcaeb986ccffb53d60a12f145522)
 - [Test Case 2](https://github.com/VamsiNayunipati/user_management_finalProject/commit/9257ad2b9d129a10fe3af6d5845cc595a2f976fa)
-- [Test Case 3]()
-- [Test Case 4]()
+- [Test Case 3](https://github.com/VamsiNayunipati/user_management_finalProject/commit/ff965ddfac29728c73eafc58697dd5b05a875478)
+- [Test Case 4](https://github.com/VamsiNayunipati/user_management_finalProject/commit/511834583ff80f7015e95b2bdd5d7864301ec4d7)
 - [Test Case 5]()
 - [Test Case 6]()
 - [Test Case 7]()
