@@ -80,11 +80,10 @@ jobs:
           cache-to: type=inline,mode=max
           
       - name: Scan the Docker image
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@v2.3.0
         with:
           image-ref: 'vamsinayunipati/wsd_final:${{ github.sha }}'
           format: 'table'
           exit-code: '1' # Fail the job if vulnerabilities are found
           ignore-unfixed: true
-          #severity: 'CRITICAL,HIGH'
-          scanners: 'vuln'
+          severity: 'CRITICAL,HIGH'
