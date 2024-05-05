@@ -36,10 +36,26 @@ async def test_user_role(db_session, admin_user):
     stored_user = result.scalars().first()
     assert stored_user.role == UserRole.ADMIN
 
+# @pytest.mark.asyncio
+# async def test_bulk_user_creation_performance(db_session, users_with_same_role_50_users):
+#     result = await db_session.execute(select(User).filter_by(role=UserRole.AUTHENTICATED))
+#     users = result.scalars().all()
+#     assert len(users) == 50
+import uuid
 @pytest.mark.asyncio
 async def test_bulk_user_creation_performance(db_session, users_with_same_role_50_users):
+    # Generate unique nicknames for each user
+    for user in users_with_same_role_50_users:
+        user.nickname = f"user_{uuid.uuid4().hex[:8]}"
+    
+    # Commit the changes to the database
+    await db_session.commit()
+    
+    # Retrieve the users from the database
     result = await db_session.execute(select(User).filter_by(role=UserRole.AUTHENTICATED))
     users = result.scalars().all()
+    
+    # Check if the correct number of users were created
     assert len(users) == 50
 
 @pytest.mark.asyncio
