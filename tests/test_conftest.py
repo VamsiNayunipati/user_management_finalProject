@@ -48,14 +48,9 @@ async def test_bulk_user_creation_performance(db_session, users_with_same_role_5
     for user in users_with_same_role_50_users:
         user.nickname = f"user_{uuid.uuid4().hex[:8]}"
     
-    # Commit the changes to the database
     await db_session.commit()
-    
-    # Retrieve the users from the database
     result = await db_session.execute(select(User).filter_by(role=UserRole.AUTHENTICATED))
     users = result.scalars().all()
-    
-    # Check if the correct number of users were created
     assert len(users) == 50
 
 @pytest.mark.asyncio
