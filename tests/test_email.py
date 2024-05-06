@@ -13,6 +13,3 @@ async def test_send_markdown_email(email_service):
     await email_service.send_user_email(user_data, 'email_verification')
     # Manual verification in Mailtrap
 
-async def test_send_email_regarding_professional_update(email_service):
-    email= "test@example.com"
-    await email_service.send_email_regarding_professional_update(email)
