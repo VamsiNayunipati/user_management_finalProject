@@ -253,7 +253,7 @@ async def verify_email(user_id: UUID, token: str, db: AsyncSession = Depends(get
         return {"message": "Email verified successfully"}
     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid or expired verification token")
 
-@router.put("/users/updateMyProfile/", response_model=UserResponse)
+@router.put("/user/profile_update/", response_model=UserResponse)
 async def update_user_profile(
     update: UserUpdate,
     db: AsyncSession = Depends(get_db),
@@ -266,7 +266,7 @@ async def update_user_profile(
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
-@router.patch("/users/{user_id}/upgrade", response_model=UserResponse)
+@router.patch("/update/{user_id}/user", response_model=UserResponse)
 async def upgrade_user_to_professional(
     user_id: UUID,
     request: Request,
@@ -276,7 +276,7 @@ async def upgrade_user_to_professional(
     email_service: EmailService = Depends(get_email_service)
 ):
     try:
-        updated_user = await UserService.upgrade_to_professional(db, user_id, email_service)
+        updated_user = await UserService.upgrade_user_to_professional(db, user_id, email_service)
         if updated_user is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='User not found')
         return updated_user
