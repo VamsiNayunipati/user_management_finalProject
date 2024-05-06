@@ -56,6 +56,11 @@ class UserUpdate(UserBase):
                 raise ValueError("picture should be of type jpeg, png or jpeg")
         return value
     
+    @validator("github_profile_url", "profile_picture_url", "linkedin_profile_url", pre=True, always=True)
+    def empty_string_to_null(cls, gpl):
+        gpl = gpl.strip() if isinstance(gpl, str) else gpl
+        return None if gpl == "" else gpl
+    
     @root_validator(pre=True)
     def check_at_least_one_value(cls, values):
         if not any(values.values()):
