@@ -125,6 +125,19 @@ async def test_update_profile_pic_url_null(async_client, admin_user, admin_token
     assert response.json()["profile_picture_url"] == None
 
 @pytest.mark.asyncio
+async def test_update_to_professional_status_is_Allowed(admin_token, admin_user, async_client):
+    headers = {"Authorization": f"Bearer {admin_token}"}
+    response = await async_client.patch(f"/update/{admin_user.id}/user",  headers=headers)
+    assert response.status_code == 200
+    assert response.json()["is_professional"] == True
+
+@pytest.mark.asyncio
+async def test_update_to_professional_status_is_not_Allowed(admin_user, user_token, async_client):
+    headers = {"Authorization": f"Bearer {user_token}"}
+    response = await async_client.patch(f"/update/{admin_user.id}/user",  headers=headers)
+    assert response.status_code == 403
+
+@pytest.mark.asyncio
 async def test_delete_user(async_client, admin_user, admin_token):
     headers = {"Authorization": f"Bearer {admin_token}"}
     delete_response = await async_client.delete(f"/users/{admin_user.id}", headers=headers)
