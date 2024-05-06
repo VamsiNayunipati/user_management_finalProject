@@ -24,5 +24,4 @@
 
 ### Docker link - [Click Here](https://hub.docker.com/repository/docker/vamsinayunipati/wsd_final/general)
 
-### Link for the new feature
-[Click Here]()
+### Link for the new feature - [Click Here]()
